@@ -8,5 +8,4 @@
                      :main-opts   ["-m" "cognitect.test-runner"]}
            :package {:replace-deps {uberdeps/uberdeps {:mvn/version "1.1.1"}}
                      :main-opts    ["-m" "uberdeps.uberjar"
-                                    "--main-class" "lambdas.hello"
-                                    "--target" "./target/lambdas-hello.jar"]}}}
+                                    "--target" "./target/lambdas-java-aws-sdk.jar"]}}}
