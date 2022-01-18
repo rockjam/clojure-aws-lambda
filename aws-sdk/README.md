@@ -3,7 +3,7 @@
 Based on [AWS tutorial](https://aws.amazon.com/blogs/compute/clojure/) with adjustments for Clojure tools(deps.edn).
 
 One can create AWS Lambda from a JAR file that contains public methods with signatures acceptable by AWS Lambda. 
-Package a JAR with all dependencies included(uberjar) and provide it to `aws lambda create-function` command([example](./Makefile#L26)).
+Package a JAR with all dependencies included(uberjar) and provide it to `aws lambda create-function` command([example](./Makefile#L26-L34)).
 So, the similar approach would work for other JVM-based languages, such as Java Kotlin and Scala.
 
 ## aws-sdk-hello function
