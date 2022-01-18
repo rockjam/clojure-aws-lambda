@@ -33,6 +33,12 @@ create-hello-function:
       --role arn:aws:iam::$(aws_account_id):role/lambda-role \
       --zip-file fileb://./target/lambdas-java-aws-sdk.jar
 
+.PHONY: update-hello-function-code
+update-hello-function-code:
+	aws lambda update-function-code \
+      --function-name aws-sdk-hello \
+      --zip-file fileb://./target/lambdas-java-aws-sdk.jar
+
 .PHONY: delete-hello-function
 delete-hello-function:
 	aws lambda delete-function --function-name aws-sdk-hello
@@ -47,6 +53,12 @@ create-pojo-function:
       --memory 256 \
       --timeout 10 \
       --role arn:aws:iam::$(aws_account_id):role/lambda-role \
+      --zip-file fileb://./target/lambdas-java-aws-sdk.jar
+
+.PHONY: update-pojo-function-code
+update-pojo-function-code:
+	aws lambda update-function-code \
+      --function-name aws-sdk-pojo \
       --zip-file fileb://./target/lambdas-java-aws-sdk.jar
 
 .PHONY: delete-pojo-function
