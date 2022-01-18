@@ -10,7 +10,7 @@ fmt:
 compile:
 	mkdir -p classes
 	javac --release 11 -d classes src/**/*.java
-	clojure -M -e "(binding [*compiler-options* {:direct-linking true}] (compile 'lambdas.hello) (compile 'lambdas.pojo))"
+	clojure -M -e "(binding [*compiler-options* {:direct-linking true}] (compile 'lambdas.hello) (compile 'lambdas.pojo) (compile 'lambdas.s3-event-handler))"
 
 .PHONY: package
 package: compile
@@ -52,3 +52,25 @@ create-pojo-function:
 .PHONY: delete-pojo-function
 delete-pojo-function:
 	aws lambda delete-function --function-name aws-sdk-pojo
+
+.PHONY: create-s3-event-function
+create-s3-event-function:
+	aws lambda create-function \
+      --function-name aws-sdk-s3-event \
+      --handler lambdas.s3_event_handler \
+      --runtime java11 \
+      --architecture arm64 \
+      --memory 256 \
+      --timeout 10 \
+      --role arn:aws:iam::$(aws_account_id):role/lambda-role \
+      --zip-file fileb://./target/lambdas-java-aws-sdk.jar
+
+.PHONY: update-s3-event-function-code
+update-s3-event-function-code:
+	aws lambda update-function-code \
+      --function-name aws-sdk-s3-event \
+      --zip-file fileb://./target/lambdas-java-aws-sdk.jar
+
+.PHONY: delete-s3-event-function
+delete-s3-event-function:
+	aws lambda delete-function --function-name aws-sdk-s3-event
