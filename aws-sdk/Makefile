@@ -10,7 +10,7 @@ fmt:
 compile:
 	mkdir -p classes
 	javac --release 11 -d classes src/**/*.java
-	clojure -M -e "(binding [*compiler-options* {:direct-linking true}] (compile 'lambdas.hello) (compile 'lambdas.pojo) (compile 'lambdas.s3-event-handler))"
+	clojure -M -e "(binding [*compiler-options* {:direct-linking true}] (compile 'lambdas.hello) (compile 'lambdas.pojo) (compile 'lambdas.s3-event-handler) (compile 'lambdas.s3-image-resize-handler))"
 
 .PHONY: package
 package: compile
@@ -86,3 +86,25 @@ update-s3-event-function-code:
 .PHONY: delete-s3-event-function
 delete-s3-event-function:
 	aws lambda delete-function --function-name aws-sdk-s3-event
+
+.PHONY: create-image-resize-function
+create-image-resize-function:
+	aws lambda create-function \
+      --function-name aws-sdk-image-resize \
+      --handler lambdas.s3_image_resize_handler \
+      --runtime java11 \
+      --architecture arm64 \
+      --memory 512 \
+      --timeout 30 \
+      --role arn:aws:iam::$(aws_account_id):role/lambda-s3-image-resize-role \
+      --zip-file fileb://./target/lambdas-java-aws-sdk.jar
+
+.PHONY: update-image-resize-function-code
+update-image-resize-function-code:
+	aws lambda update-function-code \
+      --function-name aws-sdk-image-resize \
+      --zip-file fileb://./target/lambdas-java-aws-sdk.jar
+
+.PHONY: delete-image-resize-function
+delete-image-resize-function:
+	aws lambda delete-function --function-name aws-sdk-image-resize
