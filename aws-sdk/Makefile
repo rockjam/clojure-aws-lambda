@@ -94,8 +94,8 @@ create-image-resize-function:
       --handler lambdas.s3_image_resize_handler \
       --runtime java11 \
       --architecture arm64 \
-      --memory 512 \
-      --timeout 30 \
+      --memory 1024 \
+      --timeout 60 \
       --role arn:aws:iam::$(aws_account_id):role/lambda-s3-image-resize-role \
       --zip-file fileb://./target/lambdas-java-aws-sdk.jar
 

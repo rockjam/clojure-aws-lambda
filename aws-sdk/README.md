@@ -78,3 +78,15 @@ make clean package update-s3-event-function-code
 ```shell
 make delete-s3-event-function
 ```
+
+## aws-sdk-image-resize function
+
+Following the [tutorial](https://docs.aws.amazon.com/lambda/latest/dg/with-s3-tutorial.html).
+
+
+aws lambda add-permission --function-name aws-sdk-image-resize --principal s3.amazonaws.com \
+--statement-id s3invoke --action "lambda:InvokeFunction" \
+--source-arn arn:aws:s3:::rockam-images \
+--source-account 301031645804
+
+aws lambda get-policy --function-name aws-sdk-image-resize

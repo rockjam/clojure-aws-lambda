@@ -1,6 +1,6 @@
 (ns lambdas.s3-event-handler
   (:gen-class
-    :implements [com.amazonaws.services.lambda.runtime.RequestStreamHandler])
+   :implements [com.amazonaws.services.lambda.runtime.RequestStreamHandler])
   (:require [clojure.data.json :as json]
             [clojure.string :as str]
             [clojure.java.io :as io])
