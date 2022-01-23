@@ -9,11 +9,11 @@ Resources:
     Properties:
       FunctionName: api-gateway-function
       Handler: lambdas.api_gateway_function
-      CodeUri: "s3://rockjam-build-artifacts/api-gateway-function.jar"
+      CodeUri: .
       Runtime: java11
       Architectures:
         - arm64
-      MemorySize: 128
+      MemorySize: 256
       Timeout: 10
       Events:
         HelloWorld:
@@ -21,3 +21,5 @@ Resources:
           Properties:
             Path: /hello
             Method: get
+    Metadata:
+      BuildMethod: makefile
