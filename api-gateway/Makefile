@@ -30,3 +30,7 @@ deploy:
 build-ApiGatewayFunction: package
 	mkdir -p $(ARTIFACTS_DIR)/lib
 	cp ./target/api-gateway-function.jar $(ARTIFACTS_DIR)/lib/
+
+.PHONY: build-JavaWrapperLayer
+build-JavaWrapperLayer:
+	cp ./scripts/java-wrapper.sh $(ARTIFACTS_DIR)

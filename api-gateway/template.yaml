@@ -15,6 +15,11 @@ Resources:
         - arm64
       MemorySize: 256
       Timeout: 10
+      Layers:
+        - !Ref JavaWrapperLayer
+      Environment:
+        Variables:
+          AWS_LAMBDA_EXEC_WRAPPER: /opt/java-wrapper.sh
       Events:
         HelloWorld:
           Type: HttpApi
@@ -22,6 +27,21 @@ Resources:
             ApiId: !Ref ServerlessHttpApi
             Path: /hello
             Method: get
+    Metadata:
+      BuildMethod: makefile
+
+  JavaWrapperLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: JavaWrapperLayer
+      Description: Layer with Java Wrapper that adds Tiered compilation Java options.
+      ContentUri: .
+      CompatibleArchitectures:
+        - x86_64
+        - arm64
+      CompatibleRuntimes:
+        - java8
+        - java11
     Metadata:
       BuildMethod: makefile
 
