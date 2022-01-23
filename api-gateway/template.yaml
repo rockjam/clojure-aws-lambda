@@ -1,0 +1,23 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Example AWS Lambda function that's called via API Gateway
+
+Resources:
+  ApiGatewayFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: api-gateway-function
+      Handler: lambdas.api_gateway_function
+      CodeUri: "s3://rockjam-build-artifacts/api-gateway-function.jar"
+      Runtime: java11
+      Architectures:
+        - arm64
+      MemorySize: 128
+      Timeout: 10
+      Events:
+        HelloWorld:
+          Type: Api
+          Properties:
+            Path: /hello
+            Method: get
