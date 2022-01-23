@@ -17,9 +17,22 @@ Resources:
       Timeout: 10
       Events:
         HelloWorld:
-          Type: Api
+          Type: HttpApi
           Properties:
+            ApiId: !Ref ServerlessHttpApi
             Path: /hello
             Method: get
     Metadata:
       BuildMethod: makefile
+
+  ServerlessHttpApi:
+    Type: AWS::Serverless::HttpApi
+    DeletionPolicy: Retain
+    Properties:
+      StageName: Prod
+
+Outputs:
+  ApiGatewayFunctionEndpoint:
+    Description: Endpoint for ApiGatewayFunction
+    Value:
+      Fn::Sub: https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com/hello
