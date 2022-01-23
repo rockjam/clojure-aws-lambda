@@ -8,7 +8,7 @@
 (defn handle-event [event]
   {:statusCode 200
    :headers    {"content-type" "text/plain; charset=utf-8"}
-   :body       "Hello World!"})
+   :body       "hello world!"})
 
 (defn key->keyword [key-string]
   (-> key-string

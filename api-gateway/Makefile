@@ -20,17 +20,21 @@ clean:
 	rm -rf classes
 	rm -rf target
 
-.PHONY: deploy
-deploy:
+.PHONY: build
+build:
 	sam build
+
+.PHONY: deploy
+deploy: build
 	sam deploy
 
-# target used by AWS sam to build and deploy the function
+# target used by AWS SAM to build and deploy the function
 .PHONY: build-ApiGatewayFunction
 build-ApiGatewayFunction: package
 	mkdir -p $(ARTIFACTS_DIR)/lib
 	cp ./target/api-gateway-function.jar $(ARTIFACTS_DIR)/lib/
 
+# target used by AWS SAM to build and deploy java wrapper layer
 .PHONY: build-JavaWrapperLayer
 build-JavaWrapperLayer:
 	cp ./scripts/java-wrapper.sh $(ARTIFACTS_DIR)
