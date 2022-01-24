@@ -28,7 +28,7 @@ with `curl -XGET http://localhost:3000/hello`
 ### Deploy the function for the first time
 
 ```shell
-sam deploy --guided 
+sam deploy --stack-name api-gateway-app --guided 
 ```
 
 and follow the on-screen prompts. 

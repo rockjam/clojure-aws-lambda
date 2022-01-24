@@ -19,7 +19,7 @@ make build
 ### Test the function locally
 
 ```shell
- echo '"Nick"' | sam local invoke --event -
+echo '"Nick"' | sam local invoke --event -
 ```
 
 This command should print `"Hello Nick!"` in the terminal
