@@ -28,7 +28,7 @@ with `curl -XGET http://localhost:3000/hello`
 ### Deploy the function for the first time
 
 ```shell
-same deploy --guided 
+sam deploy --guided 
 ```
 
 and follow the on-screen prompts. 
@@ -47,3 +47,4 @@ make deploy
 ```shell
 sam delete
 ```
+and follow the on-screen prompts.

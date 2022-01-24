@@ -1,0 +1,39 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Example AWS Lambda Function that accepts a string and returns a greeting string.
+
+Resources:
+  HelloSomethingFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: hello-something-function
+      Handler: lambdas.hello_something_function::handler
+      CodeUri: .
+      Runtime: java11
+      Architectures:
+        - arm64
+      MemorySize: 256
+      Timeout: 10
+      Layers:
+        - !Ref JavaWrapperLayer
+      Environment:
+        Variables:
+          AWS_LAMBDA_EXEC_WRAPPER: /opt/java-wrapper.sh
+    Metadata:
+      BuildMethod: makefile
+
+  JavaWrapperLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: JavaWrapperLayer
+      Description: Layer with Java Wrapper that adds Tiered compilation Java options.
+      ContentUri: .
+      CompatibleArchitectures:
+        - x86_64
+        - arm64
+      CompatibleRuntimes:
+        - java8
+        - java11
+    Metadata:
+      BuildMethod: makefile

@@ -1,6 +1,7 @@
 # AWS Lambda with Java Lambda SDK 
 
-Based on [AWS tutorial](https://aws.amazon.com/blogs/compute/clojure/) with adjustments for Clojure tools(deps.edn).
+Based on [AWS tutorial](https://aws.amazon.com/blogs/compute/clojure/) with adjustments for Clojure tools(deps.edn)
+and with addition of AWS SAM configuration for convenient deployment.
 
 One can create AWS Lambda from a JAR file that contains public methods with signatures acceptable by AWS Lambda. 
 Package a JAR with all dependencies included(uberjar) and provide it to `aws lambda create-function` command([example](./Makefile#L26-L34)).
