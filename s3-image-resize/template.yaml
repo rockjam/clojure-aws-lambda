@@ -1,0 +1,70 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Example AWS Lambda Function that resizes source images from source S3 bucket and writes it to destination S3 bucket. 
+
+Resources:
+  S3ImageResizeFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: s3-image-resize-function
+      Handler: lambdas.s3_image_resize_function
+      CodeUri: .
+      Runtime: java11
+      Architectures:
+        - arm64
+      MemorySize: 1024
+      Timeout: 60
+      Layers:
+        - !Ref JavaWrapperLayer
+      Events:
+        S3Upload:
+          Type: S3
+          Properties:
+            Bucket: !Ref ImagesBucket
+            Events: s3:ObjectCreated:*
+      Policies:
+        - S3ReadPolicy:
+            BucketName: rockjam-images
+        - S3WritePolicy:
+            BucketName: rockjam-images-resized
+      Environment:
+        Variables:
+          AWS_LAMBDA_EXEC_WRAPPER: /opt/java-wrapper.sh
+    Metadata:
+      BuildMethod: makefile
+
+  ImagesBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: rockjam-images
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+
+  ImagesResizedBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: rockjam-images-resized
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+
+  JavaWrapperLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: JavaWrapperLayer
+      Description: Layer with Java Wrapper that adds Tiered compilation Java options.
+      ContentUri: .
+      CompatibleArchitectures:
+        - x86_64
+        - arm64
+      CompatibleRuntimes:
+        - java8
+        - java11
+    Metadata:
+      BuildMethod: makefile

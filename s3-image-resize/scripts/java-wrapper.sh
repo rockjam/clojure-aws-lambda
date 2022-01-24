@@ -1,0 +1,5 @@
+#!/bin/sh
+
+shift
+export _JAVA_OPTIONS="-XX:+TieredCompilation -XX:TieredStopAtLevel=1"
+java "$@"
