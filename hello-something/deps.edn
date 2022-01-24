@@ -1,6 +1,5 @@
 {:paths   ["src" "classes"]
- :deps    {org.clojure/clojure                {:mvn/version "1.10.3"}
-           com.amazonaws/aws-lambda-java-core {:mvn/version "1.2.1"}}
+ :deps    {org.clojure/clojure                {:mvn/version "1.10.3"}}
  :aliases {:fmt     {:extra-deps {cljfmt/cljfmt {:mvn/version "0.8.0"}}
                      :main-opts  ["-m" "cljfmt.main" "fix"]}
            :test    {:extra-paths ["test"]
