@@ -12,4 +12,4 @@
                      :exec-fn     build/aot}
            :package {:replace-deps {uberdeps/uberdeps {:mvn/version "1.1.2"}}
                      :main-opts    ["-m" "uberdeps.uberjar"
-                                    "--target" "./target/api-gateway-function.jar"]}}}
+                                    "--target" "./target/function.jar"]}}}

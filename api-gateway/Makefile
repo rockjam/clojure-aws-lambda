@@ -32,7 +32,7 @@ deploy: build
 .PHONY: build-ApiGatewayFunction
 build-ApiGatewayFunction: package
 	mkdir -p $(ARTIFACTS_DIR)/lib
-	cp ./target/api-gateway-function.jar $(ARTIFACTS_DIR)/lib/
+	cp ./target/function.jar $(ARTIFACTS_DIR)/lib/
 
 # target used by AWS SAM to build and deploy java wrapper layer
 .PHONY: build-JavaWrapperLayer

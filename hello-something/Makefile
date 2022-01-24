@@ -32,7 +32,7 @@ deploy: build
 .PHONY: build-HelloSomethingFunction
 build-HelloSomethingFunction: package
 	mkdir -p $(ARTIFACTS_DIR)/lib
-	cp ./target/hello-something-function.jar $(ARTIFACTS_DIR)/lib/
+	cp ./target/function.jar $(ARTIFACTS_DIR)/lib/
 
 # target used by AWS SAM to build and deploy java wrapper layer
 .PHONY: build-JavaWrapperLayer
