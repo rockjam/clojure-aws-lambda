@@ -1,7 +1,7 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
-  Example AWS Lambda Function that accepts a string and returns a greeting string.
+  Example AWS Lambda Function that accepts custom event described by Java class and returns a greeting.
 
 Resources:
   POJOFunction:
